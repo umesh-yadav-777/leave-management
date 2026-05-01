@@ -1,0 +1,104 @@
+/* Home.css */
+.home-wrapper {
+    background-color: #f8f9fa;
+    /* Professional Light White */
+    color: #2d3748;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Navbar Fix */
+.home-nav {
+    background: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 1rem 2rem;
+}
+
+/* Hero Section - No Overlap */
+.hero-section {
+    padding: 100px 20px;
+    background: white;
+    text-align: center;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #1a202c;
+    line-height: 1.2;
+}
+
+/* Feature Grid Fix */
+.section-padding {
+    padding: 80px 0;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.f-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid #edf2f7;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.f-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+/* Portal Selection Area */
+.portal-area {
+    background: #f8f9fa;
+    padding: 100px 0;
+}
+
+.portal-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.portal-link {
+    text-decoration: none !important;
+    color: inherit;
+    width: 100%;
+    max-width: 400px;
+}
+
+.p-card {
+    background: #ffffff;
+    padding: 50px;
+    border-radius: 24px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.p-card:hover {
+    border-color: #0d6efd;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+}
+
+.p-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+/* Footer */
+.home-footer {
+    background: white;
+    padding: 40px 0;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+}

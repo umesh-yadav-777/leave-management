@@ -1,38 +1,203 @@
-.App {
-  text-align: center;
+/* --- Global Variables & Reset --- */
+:root {
+  --sidebar-width: 260px;
+  --primary-blue: #0d6efd;
+  --dark-navy: #0f172a;
+  --glass-white: rgba(255, 255, 255, 0.05);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: #f0f2f5;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+/* --- HOME PAGE & LOGIN (Premium Dark Theme) --- */
+.home-wrapper {
+  background-color: var(--dark-navy) !important;
   min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+/* Glowing Background Shapes */
+.shape {
+  position: absolute;
+  filter: blur(80px);
+  z-index: 0;
+  border-radius: 50%;
+}
+
+.shape-1 {
+  width: 350px;
+  height: 350px;
+  background: rgba(37, 99, 235, 0.3);
+  top: -10%;
+  right: -5%;
+}
+
+.shape-2 {
+  width: 450px;
+  height: 450px;
+  background: rgba(124, 58, 237, 0.2);
+  bottom: -15%;
+  left: -10%;
+}
+
+/* The Glassmorphism Card */
+.home-card {
+  background: rgba(255, 255, 255, 0.05) !important;
+  /* Ye card ko transparent/glass banayega */
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 30px;
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+/* Blue-Purple Gradient Text */
+.text-gradient {
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Glow Buttons */
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);
+  transition: 0.3s;
+}
+
+.shadow-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(37, 99, 235, 0.6);
+}
+
+/* Input Fields for Login/Register (Glass Style) */
+.home-card .form-control {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+}
+
+.home-card .form-control:focus {
+  border-color: #60a5fa !important;
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.3) !important;
+}
+
+/* --- DASHBOARD & SIDEBAR STYLES --- */
+#sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: fixed;
+  background: #1e293b;
+  z-index: 1000;
+  transition: 0.3s;
+}
+
+#main-content {
+  margin-left: var(--sidebar-width);
+  width: calc(100% - var(--sidebar-width));
+  background-color: #f0f2f5;
+  min-height: 100vh;
+}
+
+.stat-card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Sidebar Container */
+.sidebar-container {
+  width: 250px;
+  background: linear-gradient(180deg, #0f172a, #1e293b);
+  min-height: 100vh;
+  color: #fff;
+}
+
+/* Logo / Title */
+.sidebar-container h4 {
+  letter-spacing: 1px;
+}
+
+/* Nav Links */
+.nav-link {
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 15px;
+}
+
+/* Default Link */
+.nav-link.text-white-50 {
+  color: #cbd5e1 !important;
+}
+
+/* Hover Effect */
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #fff !important;
+  transform: translateX(5px);
+}
+
+/* Active Link */
+.active-link {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  color: #000 !important;
+  font-weight: 600;
+}
+
+/* Icons spacing */
+.nav-link i {
+  margin-right: 8px;
+}
+
+/* Logout Button */
+.text-danger {
+  color: #ef4444 !important;
+}
+
+.text-danger:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+
+/* Mobile Responsive */
+
+@media (max-width: 768px) {
+  .sidebar-wrapper {
+    left: -250px;
+    /* Mobile par chhup jayega */
   }
-  to {
-    transform: rotate(360deg);
+
+  .sidebar-wrapper.active {
+    left: 0;
+    /* Button dabane par bahar aayega */
+  }
+
+  .main-content-wrapper {
+    margin-left: 0 !important;
+    /* Mobile par margin khatam */
   }
 }
+
+
+/*user leavehistory.js*/
+.table-hover tbody tr:hover {
+  background-color: rgba(13, 110, 253, 0.02) !important;
+  transition: 0.2s;
+}
+
+
