@@ -6,6 +6,7 @@ psycopg2-binary
 gunicorn
 django-cors-headers
 djangorestframework
+djangorestframework-simplejwt
 requests==2.32.5
 pytz==2025.2
 dj-database-url
