@@ -26,17 +26,17 @@ const Layout = ({ children }) => {
         <Sidebar />
       </nav>
 
-      {/* 2. Main Content Area - Iska apna scrollbar hoga */}
+
       <div
         className="d-flex flex-column"
         style={{
           flex: 1,
           height: "100vh",
-          overflowY: "auto", // Dashboard scroll yahan hoga
+          overflowY: "auto",
           backgroundColor: "#f0f2f5"
         }}
       >
-        {/* Top Navbar - Sticky inside the scrollable content area */}
+        
         <nav
           className="navbar navbar-expand-lg navbar-light px-4 py-3 sticky-top shadow-sm bg-white"
           style={{ zIndex: 1040 }}

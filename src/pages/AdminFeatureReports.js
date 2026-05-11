@@ -1,87 +1,138 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
-function AdminFeatureReports() {
-  // Ye "Dummy Data" hai, jo baad mein Backend/Database se aayega
-  const reportData = [
-    { id: 1, name: "Rahul Sharma", dept: "IT", type: "Sick Leave", duration: "2 Days", status: "Approved" },
-    { id: 2, name: "Priya Verma", dept: "HR", type: "Annual Leave", duration: "5 Days", status: "Pending" },
-    { id: 3, name: "Amit Patel", dept: "Sales", type: "Casual Leave", duration: "1 Day", status: "Rejected" },
-    { id: 4, name: "Sneha Reddy", dept: "Marketing", type: "Sick Leave", duration: "3 Days", status: "Approved" },
-    { id: 5, name: "Vikram Singh", dept: "Finance", type: "Annual Leave", duration: "10 Days", status: "Approved" },
-  ];
+function AdminReports() {
+    const [reports, setReports] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [selectedLeave, setSelectedLeave] = useState(null); // Modal ke liye state
 
-  const getStatusStyle = (status) => {
-    switch (status) {
-      case 'Approved': return { color: '#198754', backgroundColor: '#e8f5e9', padding: '5px 12px', borderRadius: '50px', fontSize: '12px', fontWeight: 'bold' };
-      case 'Pending': return { color: '#856404', backgroundColor: '#fff3cd', padding: '5px 12px', borderRadius: '50px', fontSize: '12px', fontWeight: 'bold' };
-      case 'Rejected': return { color: '#721c24', backgroundColor: '#f8d7da', padding: '5px 12px', borderRadius: '50px', fontSize: '12px', fontWeight: 'bold' };
-      default: return {};
-    }
-  };
+    const API_URL = 'http://127.0.0.1:8000/accounts/leave-reports/';
 
-  return (
-    <div style={{ padding: '30px', backgroundColor: '#fcfcfd', minHeight: '100vh' }}>
-      {/* Header Section */}
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <h2 style={{ color: 'navy', fontWeight: '800' }}>Leave Analytics Report</h2>
-          <p className="text-muted">Detailed overview of team attendance and leave patterns.</p>
-        </div>
-        <button className="btn btn-primary" style={{ borderRadius: '10px', padding: '10px 20px' }}>
-          Download PDF Report
-        </button>
-      </div>
+    const fetchReports = async () => {
+        try {
+            setLoading(true);
+            const token = localStorage.getItem('access_token');
+            const response = await axios.get(API_URL, {
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+            setReports(response.data);
+            setLoading(false);
+        } catch (err) {
+            setError("Failed to fetch reports.");
+            setLoading(false);
+        }
+    };
 
-      {/* Table Container */}
-      <div className="card border-0 shadow-sm" style={{ borderRadius: '20px', overflow: 'hidden' }}>
-        <table className="table table-hover mb-0" style={{ verticalAlign: 'middle' }}>
-          <thead style={{ backgroundColor: '#f8f9fa' }}>
-            <tr>
-              <th className="border-0 px-4 py-3">Employee Name</th>
-              <th className="border-0 py-3">Department</th>
-              <th className="border-0 py-3">Leave Type</th>
-              <th className="border-0 py-3">Duration</th>
-              <th className="border-0 py-3">Status</th>
-              <th className="border-0 px-4 py-3 text-end">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reportData.map((item) => (
-              <tr key={item.id} style={{ borderBottom: '1px solid #f1f1f1' }}>
-                <td className="px-4 py-3">
-                  <div className="d-flex align-items-center">
-                    <div style={{ width: '35px', height: '35px', borderRadius: '50%', backgroundColor: '#0d6efd', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px', fontWeight: 'bold' }}>
-                      {item.name.charAt(0)}
+    useEffect(() => { fetchReports(); }, []);
+
+    const handleDownloadPDF = () => {
+        if (reports.length === 0) return alert("No data!");
+        const doc = new jsPDF();
+        doc.text('Leave Analytics Report', 14, 20);
+        const tableRows = reports.map(item => [item.employee_name, item.department, item.leave_type, item.duration, item.status]);
+        autoTable(doc, {
+            head: [["Employee", "Dept", "Type", "Duration", "Status"]],
+            body: tableRows,
+            startY: 25,
+        });
+        doc.save('Leave_Report.pdf');
+    };
+
+    const getStatusBadge = (status) => {
+        const s = status.toLowerCase();
+        if (s === 'approved') return 'bg-success text-white';
+        if (s === 'rejected') return 'bg-danger text-white';
+        return 'bg-warning text-dark';
+    };
+
+    return (
+        <div className="container-fluid p-4" style={{ backgroundColor: '#f8f9fa', minHeight: '100vh' }}>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h2 className="fw-bold text-navy">Leave Analytics Report</h2>
+                <button className="btn btn-primary shadow-sm" onClick={handleDownloadPDF}>
+                    Download PDF Report
+                </button>
+            </div>
+
+            {loading ? (
+                <div className="text-center py-5"><div className="spinner-border text-primary"></div></div>
+            ) : (
+                <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <table className="table table-hover align-middle mb-0">
+                        <thead className="bg-light">
+                            <tr>
+                                <th className="ps-4">Employee Name</th>
+                                <th>Department</th>
+                                <th>Leave Type</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                                <th className="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {reports.map((item) => (
+                                <tr key={item.id}>
+                                    <td className="ps-4 fw-bold">{item.employee_name}</td>
+                                    <td>{item.department}</td>
+                                    <td>{item.leave_type}</td>
+                                    <td>{item.duration}</td>
+                                    <td><span className={`badge rounded-pill px-3 ${getStatusBadge(item.status)}`}>{item.status}</span></td>
+                                    <td className="text-center">
+                                        <button
+                                            className="btn btn-sm btn-outline-primary"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#leaveDetailModal"
+                                            onClick={() => setSelectedLeave(item)}
+                                        >
+                                            Details
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
+
+            {/* --- BOOTSTRAP MODAL --- */}
+            <div className="modal fade" id="leaveDetailModal" tabIndex="-1" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
+                    <div className="modal-content border-0 shadow" style={{ borderRadius: '15px' }}>
+                        <div className="modal-header bg-primary text-white" style={{ borderTopLeftRadius: '15px', borderTopRightRadius: '15px' }}>
+                            <h5 className="modal-title">Leave Application Details</h5>
+                            <button type="button" className="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div className="modal-body p-4">
+                            {selectedLeave && (
+                                <div>
+                                    <div className="row mb-3">
+                                        <div className="col-6"><strong>Employee:</strong> <p>{selectedLeave.employee_name}</p></div>
+                                        <div className="col-6"><strong>Status:</strong> <p>{selectedLeave.status}</p></div>
+                                    </div>
+                                    <div className="row mb-3">
+                                        <div className="col-6"><strong>From:</strong> <p>{selectedLeave.start_date}</p></div>
+                                        <div className="col-6"><strong>To:</strong> <p>{selectedLeave.end_date}</p></div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <strong>Reason for Leave:</strong>
+                                        <div className="p-3 bg-light rounded mt-2" style={{ borderLeft: '4px solid #0d6efd' }}>
+                                            {selectedLeave.reason || "No reason provided."}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                        <div className="modal-footer border-0">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
-                    <strong>{item.name}</strong>
-                  </div>
-                </td>
-                <td className="py-3 text-muted">{item.dept}</td>
-                <td className="py-3">{item.type}</td>
-                <td className="py-3">{item.duration}</td>
-                <td className="py-3">
-                  <span style={getStatusStyle(item.status)}>{item.status}</span>
-                </td>
-                <td className="px-4 py-3 text-end">
-                  <button className="btn btn-sm btn-outline-secondary" style={{ borderRadius: '8px' }}>View Detail</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Analytics Summary Theory (Shortened) */}
-      <div className="row mt-5">
-        <div className="col-md-6">
-          <div className="p-4 bg-white rounded-4 shadow-sm border">
-            <h5>Why this data matters?</h5>
-            <p className="small text-muted">Currently, this data is static. Once the backend is integrated, these rows will be fetched from your MongoDB/SQL database in real-time, allowing you to filter by date, department, and leave status instantly.</p>
-          </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
 
-export default AdminFeatureReports;
+export default AdminReports;

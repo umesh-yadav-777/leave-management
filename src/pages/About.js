@@ -4,7 +4,7 @@ function SystemInfo() {
   const policies = [
     {
       title: "Sick Leave Policy",
-      detail: "Medical certificate is mandatory for sick leave exceeding 2 consecutive days.",
+      detail: "Email the admin and apply for leave within 48 hours of returning to work.",
       icon: "bi-plus-lg",
       color: "text-danger"
     },
@@ -81,7 +81,7 @@ function SystemInfo() {
                 </div>
                 <div className="small">
                   <div className="opacity-75">HR Support</div>
-                  <div className="fw-bold">hr@company.com</div>
+                  <div className="fw-bold">support@proleave.com</div>
                 </div>
               </div>
 
@@ -110,7 +110,7 @@ function SystemInfo() {
                   </h2>
                   <div id="faq1" className="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div className="accordion-body px-0 py-2 small text-muted">
-                      Go to 'My History' and click on the cancel icon if the status is still 'Pending'.
+                      Contact Admin to cancel.
                     </div>
                   </div>
                 </div>

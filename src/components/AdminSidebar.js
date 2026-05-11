@@ -10,16 +10,14 @@ function AdminSidebar() {
     console.log("Logout Initiated...");
 
     // 2. SERVER DELAY (Simulation):
-    // Hum 1.5 second ka intezaar kar rahe hain, jaise asli backend response deta hai
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     // 3. CLIENT CLEANUP:
-    // Server se "OK" milne ke baad browser ki memory saaf karna
     localStorage.clear();
     sessionStorage.clear();
 
     // 4. REDIRECT:
-    // Finally user ko bahar bhej dena
+
     alert("Backend Process Complete: User Session Closed.");
     navigate("/");
   };
