@@ -21,34 +21,33 @@ class CustomTokenView(TokenObtainPairView):
 def register(request):
     data = request.data
     role = data.get('role', 'employee')
-    admin_key = data.get('adminKey', '')
 
-    if role == 'admin':
-        if admin_key != "UMESH_YADAV":
-            return Response(
-                {"error": "Unauthorized: Invalid Admin Secret Key!"},
-                status=status.HTTP_403_FORBIDDEN
-            )
+    # Dono me se jo bhi mil jaye use utha lo
+    username_val = data.get('username') or data.get('email')
+    first_name_val = data.get('first_name') or data.get('fullName', '')
+    password_val = data.get('password')
+
+    if not username_val:
+        return Response({"error": "Username/Email is missing in request"}, status=400)
 
     try:
-        if CustomUser.objects.filter(username=data.get('email')).exists():
-            return Response({"error": "User with this email already exists"}, status=status.HTTP_400_BAD_REQUEST)
+        if CustomUser.objects.filter(username=username_val).exists():
+            return Response({"error": "User already exists"}, status=400)
 
         user = CustomUser.objects.create(
-            username=data.get('email'),
-            email=data.get('email'),
-            first_name=data.get('fullName', ''),
+            username=username_val,
+            email=username_val,
+            first_name=first_name_val,
             role=role,
             total_leaves=20,
             is_staff=(True if role == 'admin' else False)
         )
-        user.set_password(data['password'])
+        user.set_password(password_val)
         user.save()
 
-        return Response({"message": f"{role.capitalize()} registered successfully"}, status=status.HTTP_201_CREATED)
+        return Response({"message": "Registered successfully"}, status=201)
     except Exception as e:
-        return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
+        return Response({"error": str(e)}, status=400)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])

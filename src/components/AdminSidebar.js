@@ -18,7 +18,7 @@ function AdminSidebar() {
 
     // 4. REDIRECT:
 
-    alert("Backend Process Complete: User Session Closed.");
+    alert("Logout successfully.");
     navigate("/");
   };
 

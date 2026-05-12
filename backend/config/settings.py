@@ -12,7 +12,7 @@ SECRET_KEY = 'django-insecure-tz5t841o%lsew6=f=i@q-w7g9li66ifabk_6&*jke493*_&!_%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['leave-management-backend-jydj.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition

@@ -52,7 +52,7 @@ function Sidebar() {
       <div className="mt-auto mb-2 border-top border-secondary pt-3">
         <Link to="/" className="nav-link text-danger d-flex align-items-center px-3 fw-bold">
           <i className="bi bi-power fs-5 me-3"></i>
-          <span>Sign Out</span>
+          <span>Logout</span>
         </Link>
       </div>
     </div>
