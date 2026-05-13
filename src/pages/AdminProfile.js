@@ -10,12 +10,9 @@ function AdminProfile() {
   const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // 1. Backend se logged-in Admin ka data lana
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        // FIXED: Hardcoded localhost URL hataya.
-        // Ab ye automatic Render URL + Token use karega.
         const response = await API.get("accounts/profile/");
         setUserData(response.data);
         setLoading(false);
@@ -27,7 +24,6 @@ function AdminProfile() {
     fetchProfile();
   }, []);
 
-  // 2. Profile update karne ka logic (Password change)
   const handleUpdate = async () => {
     if (!newPassword) {
       alert("Please enter a new password first!");
@@ -35,7 +31,6 @@ function AdminProfile() {
     }
 
     try {
-      // FIXED: Hardcoded URL hataya aur headers ki zaroorat nahi kyunki API helper handle kar raha hai
       await API.post("accounts/change-password/", {
         new_password: newPassword,
       });
