@@ -12,7 +12,6 @@ function ApplyLeave() {
   const [duration, setDuration] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  // Auto-calculate Duration
   useEffect(() => {
     if (formData.start_date && formData.end_date) {
       const start = new Date(formData.start_date);
@@ -39,12 +38,10 @@ function ApplyLeave() {
 
     setLoading(true);
     try {
-      // Backend call to apply leave
       await API.post("api/leaves/apply/", formData);
 
       alert(`Success: Your leave application has been submitted.`);
 
-      // Reset Form
       setFormData({ leave_type: "", start_date: "", end_date: "", reason: "" });
       setDuration(0);
 
