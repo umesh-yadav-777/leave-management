@@ -34,7 +34,7 @@ const Layout = ({ children }) => {
           backgroundColor: "#1e293b",
           height: "100vh",
           overflowY: "auto",
-          position: isMobile ? "fixed" : "relative", // Mobile par content ke upar aayega
+          position: isMobile ? "fixed" : "relative",
           zIndex: 1100,
           left: isMobile && !isSidebarOpen ? "-260px" : "0",
         }}
