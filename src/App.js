@@ -1,8 +1,6 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
-// --- SAARE IMPORTS YAHAN HAIN ---
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -24,7 +22,6 @@ import AdminFeatureSettings from './pages/AdminFeatureSettings';
 import AdminProfile from "./pages/AdminProfile";
 import UserTeamCalendar from "./pages/UserTeamCalendar";
 
-// --- SECURITY GUARD (PROTECTED ROUTE) ---
 const ProtectedRoute = ({ children, allowedRole }) => {
   const userRole = localStorage.getItem("userRole");
 
