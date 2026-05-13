@@ -22,7 +22,6 @@ def register(request):
     data = request.data
     role = data.get('role', 'employee')
 
-    # Dono me se jo bhi mil jaye use utha lo
     username_val = data.get('username') or data.get('email')
     first_name_val = data.get('first_name') or data.get('fullName', '')
     password_val = data.get('password')
