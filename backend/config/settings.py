@@ -3,19 +3,15 @@ import dj_database_url
 from pathlib import Path
 from datetime import timedelta
 
-# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-tz5t841o%lsew6=f=i@q-w7g9li66ifabk_6&*jke493*_&!_%'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['leave-management-backend-jydj.onrender.com', 'localhost', '127.0.0.1']
 
 
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -30,7 +26,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 
 
-    # Your Local Apps
+    # My Local Apps
     'accounts',
     'leaves',
     'dashboard',
@@ -71,10 +67,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
     'default': dj_database_url.config(
         default='postgresql://proleave_db_user:jkuVQMnEDqjfA9Pxl4uM1JHGHyE8AHLN@dpg-d813h6bbc2fs738lvgo0-a.oregon-postgres.render.com/proleave_db',
         conn_max_age=600
@@ -95,7 +87,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'Asia/Kolkata' # India ke liye update kiya gaya
+TIME_ZONE = 'Asia/Kolkata' 
 USE_I18N = True
 USE_TZ = True
 
@@ -108,7 +100,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
-# CORS Configuration - React (localhost:3000) ko allow karne ke liye
 CORS_ALLOW_ALL_ORIGINS = True
 
 
