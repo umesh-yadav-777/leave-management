@@ -5,7 +5,6 @@ function AdminFeatureLeaveRequests() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // --- Backend se data lana ---
   const fetchLeaves = async () => {
     try {
       const res = await API.get("/api/leaves/manage/");
@@ -21,13 +20,9 @@ function AdminFeatureLeaveRequests() {
     fetchLeaves();
   }, []);
 
-  // --- Status Update Logic ---
   const handleAction = async (id, newStatus) => {
     try {
-      // API call to update status
       await API.patch(`/api/leaves/manage/${id}/`, { status: newStatus });
-
-      // CRITICAL FIX: Trigger event to refresh Sidebar notifications and Dashboard counts
       window.dispatchEvent(new Event("leaveStatusChanged"));
 
       setRequests(
@@ -85,7 +80,6 @@ function AdminFeatureLeaveRequests() {
                 <div className="card-body p-4">
                   <div className="d-flex justify-content-between align-items-start mb-3">
                     <div>
-                      {/* Name display fix: fallback to username if user_name is missing */}
                       <h5 className="fw-bold mb-0">
                         {req.user_name || req.employee_name || "Employee"}
                       </h5>
