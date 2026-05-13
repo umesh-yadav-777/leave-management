@@ -16,7 +16,6 @@ function AdminDashboard() {
 
   const fetchAdminData = async () => {
     try {
-      // Refresh parameter taaki cache issues na ho
       const response = await API.get(
         "api/leaves/admin-summary/?refresh=" + Date.now(),
       );
@@ -39,16 +38,14 @@ function AdminDashboard() {
 
   const updateStatus = async (status) => {
     try {
-      // Backend update - Serializer ke hisaab se path match kiya gaya hai
       await API.patch(`api/leaves/manage/${selectedReq.id}/`, {
         status: status,
       });
       setShowModal(false);
 
-      // Dusre components ko refresh karne ke liye event
       window.dispatchEvent(new Event("leaveStatusChanged"));
 
-      fetchAdminData(); // Current dashboard refresh karein
+      fetchAdminData(); 
       alert(`Leave ${status} successfully!`);
     } catch (error) {
       alert("Error updating status");
@@ -172,7 +169,6 @@ function AdminDashboard() {
                             .toUpperCase()}
                         </div>
                         <span className="fw-medium">
-                          {/* Serializer se employee_name sabse best hai */}
                           {req.employee_name || req.user_name || req.username}
                         </span>
                       </div>
