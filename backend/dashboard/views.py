@@ -9,10 +9,7 @@ from accounts.models import Notification
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def employee_dashboard_stats(request):
-    
     user = request.user
-
-    # --- 1. Admin Settings se Total Allowed Leaves uthana ---
     try:
         settings_obj = SystemSettings.objects.first()
         if settings_obj:
@@ -21,8 +18,6 @@ def employee_dashboard_stats(request):
             total_allowed = 20
     except Exception:
         total_allowed = 20
-
-    # --- 2. Used Leaves Calculation (Sirf 'Approved' status wali) ---
     approved_leaves = LeaveRequest.objects.filter(user=user, status__iexact='approved')
 
     try:
@@ -33,21 +28,16 @@ def employee_dashboard_stats(request):
             delta = leave.end_date - leave.start_date
             used_count += (delta.days + 1)
 
-    # --- 3. Available Balance (Dynamic Calculation) ---
     available_balance = max(0, total_allowed - used_count)
 
-    # --- 4. Pending Requests Count ---
     pending_count = LeaveRequest.objects.filter(user=user, status__iexact='pending').count()
 
-    # --- 5. Recent History (Latest 5 requests) ---
     recent_history = LeaveRequest.objects.filter(user=user).order_by('-applied_on')[:5]
     serializer = DashboardLeaveSerializer(recent_history, many=True)
 
-    # --- 6. Notifications Logic ---
     unread_notes = Notification.objects.filter(user=user, is_read=False).order_by('-created_at')
     notifications_list = [{"id": n.id, "message": n.message} for n in unread_notes]
 
-    # --- 7. Final Response ---
     return Response({
         "user_full_name": f"{user.first_name} {user.last_name}" if user.first_name else user.username,
         "stats": {
