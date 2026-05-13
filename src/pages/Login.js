@@ -15,13 +15,11 @@ function Login() {
         password: password
       });
 
-      // Data save karein
       localStorage.setItem("access_token", response.data.access);
       localStorage.setItem("userRole", response.data.role);
 
       alert("Login Successful!");
 
-      // Dashboard par bhejne ka logic
       if (response.data.role === "employee") {
         navigate("/dashboard");
       } else {
