@@ -2,18 +2,16 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 
 const Layout = ({ children }) => {
-  // Mobile check karne ke liye state
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 768);
 
-  // Window resize handle karein
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth <= 768;
       setIsMobile(mobile);
       if (mobile)
-        setIsSidebarOpen(false); // Mobile par default closed
-      else setIsSidebarOpen(true); // Desktop par default open
+        setIsSidebarOpen(false);
+      else setIsSidebarOpen(true);
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -28,7 +26,6 @@ const Layout = ({ children }) => {
         backgroundColor: "#f0f2f5",
       }}
     >
-      {/* 1. Sidebar Container */}
       <nav
         style={{
           width: isSidebarOpen ? "260px" : "0px",
@@ -45,7 +42,6 @@ const Layout = ({ children }) => {
         <Sidebar />
       </nav>
 
-      {/* 2. Mobile Overlay - Sidebar ke piche ka dhundla area */}
       {isMobile && isSidebarOpen && (
         <div
           onClick={() => setIsSidebarOpen(false)}
@@ -61,16 +57,14 @@ const Layout = ({ children }) => {
         />
       )}
 
-      {/* 3. Main Content Area */}
       <div
         className="d-flex flex-column flex-grow-1"
         style={{
           height: "100vh",
-          overflowX: "hidden", // Horizontal scroll rokne ke liye
-          minWidth: 0, // Flexbox layout fix
+          overflowX: "hidden",
+          minWidth: 0, 
         }}
       >
-        {/* Top Navbar */}
         <nav
           className="navbar navbar-expand-lg navbar-light px-4 py-3 sticky-top shadow-sm bg-white"
           style={{ zIndex: 1040 }}
@@ -89,7 +83,6 @@ const Layout = ({ children }) => {
           </h5>
         </nav>
 
-        {/* Dynamic Content - Scrollable area */}
         <div
           className="container-fluid p-4"
           style={{
