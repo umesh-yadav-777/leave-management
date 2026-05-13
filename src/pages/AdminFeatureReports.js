@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import API from "../components/api";
-// Bootstrap JS ko manually handle karne ke liye
 import * as bootstrap from 'bootstrap';
 
 function AdminReports() {
@@ -28,7 +27,6 @@ function AdminReports() {
     fetchReports();
   }, []);
 
-  // Modal logic with focus management to fix console warnings
   const handleShowDetails = (item) => {
     setSelectedLeave(item);
     const modalElement = document.getElementById('leaveDetailModal');
@@ -134,7 +132,6 @@ function AdminReports() {
         </div>
       )}
 
-      {/* --- MODAL (Cleaned for Accessibility) --- */}
       <div
         className="modal fade"
         id="leaveDetailModal"
