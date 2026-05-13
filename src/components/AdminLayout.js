@@ -12,7 +12,6 @@ function AdminLayout({ children }) {
     notifications: [],
   });
 
-  // Screen size change ko monitor karne ke liye
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -62,13 +61,13 @@ function AdminLayout({ children }) {
           zIndex: 1060,
           transition: "0.3s ease-in-out",
           left: isMobile && !showSidebar ? "-250px" : "0",
-          backgroundColor: "#212529", // Dark background for sidebar
+          backgroundColor: "#212529", 
         }}
       >
         <AdminSidebar />
       </div>
 
-      {/* Mobile Overlay */}
+     
       {showSidebar && isMobile && (
         <div
           onClick={() => setShowSidebar(false)}
@@ -84,7 +83,7 @@ function AdminLayout({ children }) {
         />
       )}
 
-      {/* Main Content Area */}
+      
       <div
         className="flex-grow-1 main-content"
         style={{
@@ -94,7 +93,7 @@ function AdminLayout({ children }) {
           backgroundColor: "#f8f9fa",
         }}
       >
-        {/* Header/Navbar */}
+       
         <div className="d-flex justify-content-between align-items-center px-4 py-3 bg-white shadow-sm sticky-top">
           <div className="d-flex align-items-center gap-3">
             <button
@@ -107,7 +106,7 @@ function AdminLayout({ children }) {
           </div>
 
           <div className="d-flex align-items-center gap-4">
-            {/* Notification Dropdown */}
+            
             <div className="dropdown">
               <button
                 className="btn position-relative p-0 border-0"
@@ -169,7 +168,7 @@ function AdminLayout({ children }) {
               </ul>
             </div>
 
-            {/* Profile Section */}
+            
             <Link to="/admin/profile" className="text-decoration-none">
               <div className="d-flex align-items-center gap-2">
                 <div
@@ -199,7 +198,7 @@ function AdminLayout({ children }) {
           </div>
         </div>
 
-        {/* Page Content */}
+       
         <div className="p-0">{children}</div>
       </div>
     </div>
