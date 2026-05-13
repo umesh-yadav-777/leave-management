@@ -5,7 +5,6 @@ function Navbar() {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
-  // Notifications list (Inhe aap baad mein backend se link kar sakte hain)
   const notifications = [
     "Leave Approved",
     "Leave Rejected",
@@ -18,11 +17,9 @@ function Navbar() {
     navigate("/");
   };
 
-  // Notification par click karne ka function
   const handleNotifClick = (note) => {
-    setShow(false); // Dropdown band karein
+    setShow(false); 
 
-    // FIXED: Aapke App.js ke route se match karne ke liye path change kiya
     navigate("/admin-dashboard");
 
     console.log("Navigating to Admin Dashboard for:", note);
@@ -30,14 +27,12 @@ function Navbar() {
 
   return (
     <nav className="navbar navbar-dark bg-dark px-4 shadow-sm sticky-top">
-      {/* Brand link updated to admin-dashboard */}
       <Link className="navbar-brand fw-bold" to="/admin-dashboard">
         <i className="bi bi-calendar-check me-2"></i>LeaveMS
       </Link>
 
       <div className="d-flex align-items-center">
         <div className="d-none d-md-block">
-          {/* Dashboard link updated to admin-dashboard */}
           <Link
             className="btn btn-outline-light border-0 me-2"
             to="/admin-dashboard"
@@ -50,7 +45,6 @@ function Navbar() {
           </Link>
         </div>
 
-        {/* Notification Section */}
         <div className="position-relative">
           <span
             className="text-white mx-3"
@@ -69,7 +63,6 @@ function Navbar() {
             )}
           </span>
 
-          {/* Styled Dropdown */}
           {show && (
             <div
               className="position-absolute bg-white text-dark shadow-lg rounded-3 p-2 mt-3 end-0"
