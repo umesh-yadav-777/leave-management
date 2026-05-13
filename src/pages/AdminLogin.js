@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../components/api"; // Path check kar lena
+import API from "../components/api"; 
 
 function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -10,18 +10,16 @@ function AdminLogin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // Backend ko 'username' key mein email bhejna hai
       const response = await API.post("accounts/login/", {
         username: email,
         password: password
       });
 
-      // Role check
       if (response.data.role === "admin") {
         localStorage.setItem("access_token", response.data.access);
         localStorage.setItem("userRole", "admin");
         alert("Admin Login Successful!");
-        navigate("/admin-dashboard"); // Dashboard ka sahi path yahan likhein
+        navigate("/admin-dashboard");
       } else {
         alert("Aap Admin nahi hain! Normal login use karein.");
       }
