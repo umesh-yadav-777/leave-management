@@ -38,7 +38,6 @@ function FeatureDetail() {
   const { id } = useParams();
   const feature = detailedFeatures[id];
 
-  // Page top par scroll karne ke liye
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -54,14 +53,12 @@ function FeatureDetail() {
 
   return (
     <div style={{ backgroundColor: "#f8f9fa", minHeight: "100vh", fontFamily: "'Segoe UI', sans-serif" }}>
-      {/* Navigation Bar */}
       <nav style={{ backgroundColor: "white", padding: "15px 50px", display: "flex", alignItems: "center", borderBottom: "1px solid #e2e8f0" }}>
         <Link to="/" style={{ textDecoration: "none", color: "#0d6efd", fontWeight: "bold", fontSize: "20px" }}>ProLeave.</Link>
         <span style={{ margin: "0 15px", color: "#cbd5e0" }}>/</span>
         <span style={{ color: "#718096" }}>Features</span>
       </nav>
 
-      {/* Main Content Area */}
       <div style={{ maxWidth: "900px", margin: "50px auto", padding: "0 20px" }}>
         <Link to="/" style={{ textDecoration: "none", color: "#718096", fontSize: "14px" }}>← Back to Landing Page</Link>
 
@@ -71,25 +68,21 @@ function FeatureDetail() {
             {feature.title}
           </h1>
 
-          {/* Section 1: What is it? */}
           <section style={{ marginBottom: "50px" }}>
             <h2 style={{ color: feature.color, fontSize: "24px", fontWeight: "700", marginBottom: "15px" }}>1. What is this feature?</h2>
             <p style={{ fontSize: "18px", lineHeight: "1.8", color: "#4a5568" }}>{feature.content.what}</p>
           </section>
 
-          {/* Section 2: How it works? */}
           <section style={{ marginBottom: "50px" }}>
             <h2 style={{ color: feature.color, fontSize: "24px", fontWeight: "700", marginBottom: "15px" }}>2. How does it work?</h2>
             <p style={{ fontSize: "18px", lineHeight: "1.8", color: "#4a5568" }}>{feature.content.how}</p>
           </section>
 
-          {/* Section 3: Why is it necessary? */}
           <section style={{ marginBottom: "50px" }}>
             <h2 style={{ color: feature.color, fontSize: "24px", fontWeight: "700", marginBottom: "15px" }}>3. Why is it necessary for your business?</h2>
             <p style={{ fontSize: "18px", lineHeight: "1.8", color: "#4a5568" }}>{feature.content.why}</p>
           </section>
-
-          {/* Bottom Action */}
+            
           <div style={{ marginTop: "60px", padding: "40px", backgroundColor: "#f8f9fa", borderRadius: "20px", textAlign: "center" }}>
             <h3 style={{ marginBottom: "20px" }}>Ready to experience {feature.title}?</h3>
             <Link to="/register" style={{ backgroundColor: "#0d6efd", color: "white", padding: "15px 40px", borderRadius: "50px", textDecoration: "none", fontWeight: "bold", display: "inline-block" }}>
