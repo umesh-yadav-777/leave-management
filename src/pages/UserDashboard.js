@@ -10,7 +10,6 @@ function UserDashboard() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-  // --- NAYA FUNCTION: NOTIFICATIONS CLEAR KARNE KE LIYE ---
   const clearAllNotifications = async () => {
     try {
       await API.post("accounts/clear-notifications/");
@@ -69,7 +68,6 @@ function UserDashboard() {
 
             {showNotifications && (
               <div className="position-absolute end-0 mt-3 bg-white shadow-lg rounded-4 p-3 border-0" style={{ width: "280px", zIndex: 1050 }}>
-                {/* --- NAYA BUTTON: CLEAR ALL --- */}
                 <div className="d-flex justify-content-between align-items-center border-bottom pb-2 mb-2">
                   <h6 className="fw-bold mb-0">Notifications</h6>
                   {dashboardData?.notifications?.length > 0 && (
@@ -124,7 +122,6 @@ function UserDashboard() {
         </div>
       </div>
 
-      {/* --- QUICK STATS CARDS (Waisa hi hai) --- */}
       <div className="row g-4 mb-5">
         {stats.map((item, index) => (
           <div className="col-md-4" key={index}>
@@ -143,7 +140,6 @@ function UserDashboard() {
         ))}
       </div>
 
-      {/* --- RECENT HISTORY SECTION (Waisa hi hai) --- */}
       <div className="row">
         <div className="col-12">
           <div className="card border-0 shadow-sm rounded-4 p-4">
