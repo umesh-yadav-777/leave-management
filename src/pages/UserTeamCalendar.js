@@ -5,7 +5,6 @@ function UserTeamCalendar() {
   const [teamLeaves, setTeamLeaves] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Current Date Logic: Aaj ki date se shuru karte hain
   const today = new Date();
   const [viewDate, setViewDate] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
 
@@ -23,7 +22,6 @@ function UserTeamCalendar() {
     fetchCalendarData();
   }, []);
 
-  // --- Fixed Navigation Logic ---
   const handlePrevMonth = () => {
     setViewDate(new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1));
   };
@@ -49,14 +47,12 @@ function UserTeamCalendar() {
       <div className="card shadow-sm border-0 rounded-4 overflow-hidden">
         <div className="card-header bg-white border-0 p-4 d-flex justify-content-between align-items-center">
           <div className="d-flex align-items-center gap-3">
-            {/* Previous Month Button */}
             <button className="btn btn-light btn-sm rounded-circle shadow-sm" onClick={handlePrevMonth}>
               <i className="bi bi-chevron-left"></i>
             </button>
             <h5 className="fw-bold text-primary mb-0" style={{ minWidth: "150px", textAlign: "center" }}>
               {monthLabel}
             </h5>
-            {/* Next Month Button */}
             <button className="btn btn-light btn-sm rounded-circle shadow-sm" onClick={handleNextMonth}>
               <i className="bi bi-chevron-right"></i>
             </button>
@@ -77,7 +73,6 @@ function UserTeamCalendar() {
             ))}
 
             {days.map(day => {
-              // Date Comparison Logic (Normalization)
               const currentIterationDate = new Date(viewDate.getFullYear(), viewDate.getMonth(), day);
               currentIterationDate.setHours(0, 0, 0, 0); // Time zero kar diya
 
