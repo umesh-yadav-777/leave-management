@@ -12,7 +12,7 @@ function AdminFeatureManageUsers() {
   const [currentUser, setCurrentUser] = useState({
     id: "",
     fullName: "",
-    email: "", // User ka email hi username ki tarah kaam karega
+    email: "", 
     role: "employee",
     password: "",
   });
@@ -40,7 +40,7 @@ function AdminFeatureManageUsers() {
       setCurrentUser({
         id: user.id,
         fullName: user.first_name || "",
-        email: user.username || "", // backend username -> frontend email
+        email: user.username || "", 
         role: user.role || "employee",
         password: "",
       });
@@ -60,35 +60,28 @@ function AdminFeatureManageUsers() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Debugging: Console check karein ki data kya hai submit ke waqt
     console.log("Submitting User Data:", currentUser);
 
     try {
-      // 1. Payload Mapping (Ise aur strict banate hain)
       const payload = {
-        username: String(currentUser.email).trim(), // .trim() se extra space hat jayega
+        username: String(currentUser.email).trim(),
         first_name: currentUser.fullName,
         role: currentUser.role,
-        password: currentUser.password, // Sirf add mode mein password bhejna hai
+        password: currentUser.password, 
       };
 
-      // Safety Check: Agar username null ya empty hai toh request na bhejein
       if (!payload.username || payload.username === "undefined") {
         alert("Error: Email/Username is missing in the form!");
         return;
       }
 
       if (isEditMode) {
-        // --- UPDATE USER ---
         await API.patch(`accounts/manage-users/${currentUser.id}/`, payload);
         alert("User updated successfully!");
       } else {
-        // --- ADD NEW USER (REGISTER) ---
         payload.password = currentUser.password;
 
         console.log("Final Payload being sent to Register:", payload);
-
-        // Header add karein taaki Django ise sahi se parse kar sake
         await API.post("accounts/register/", payload, {
           headers: {
             "Content-Type": "application/json",
@@ -108,15 +101,12 @@ function AdminFeatureManageUsers() {
       if (err.response?.data) {
         const data = err.response.data;
 
-        // Agar backend error string hai toh direct dikhayein
         if (typeof data === "string") {
           errorMsg = data;
         }
-        // Agar backend database error bhej raha hai (jo aapko aaya tha)
         else if (data.error) {
           errorMsg = data.error;
         }
-        // Baki validation errors ke liye
         else {
           errorMsg = Object.entries(data)
             .map(([key, val]) => `${key}: ${val}`)
@@ -272,7 +262,7 @@ function AdminFeatureManageUsers() {
                       type="email"
                       className="form-control"
                       value={currentUser.email}
-                      disabled={isEditMode} // Edit mode mein email/username change nahi hota zyadatar
+                      disabled={isEditMode} 
                       onChange={(e) =>
                         setCurrentUser({
                           ...currentUser,
