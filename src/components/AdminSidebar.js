@@ -4,19 +4,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 function AdminSidebar() {
   const navigate = useNavigate();
 
-  // --- Naya "Backend Simulation" Logout Function ---
   const handleLogout = async () => {
-    // 1. Pehle hum user ko message dikhayenge ki process shuru hai
     console.log("Logout Initiated...");
 
-    // 2. SERVER DELAY (Simulation):
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // 3. CLIENT CLEANUP:
     localStorage.clear();
     sessionStorage.clear();
 
-    // 4. REDIRECT:
 
     alert("Logout successfully.");
     navigate("/");
@@ -49,7 +44,6 @@ function AdminSidebar() {
           <i className="bi bi-person-circle"></i> My Profile
         </NavLink>
 
-        {/* Logout Button: Is par click karte hi delay dikhega */}
         <div
           onClick={handleLogout}
           className="nav-link text-danger mt-5"
