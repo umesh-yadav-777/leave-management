@@ -1,6 +1,5 @@
 import API from "../components/api";
 import React, { useState, useEffect } from "react";
-// axios ki zaroorat nahi hai kyunki API instance use kar rahe hain
 
 function AdminFeatureSettings() {
   const [settings, setSettings] = useState({
@@ -12,14 +11,11 @@ function AdminFeatureSettings() {
   });
   const [loading, setLoading] = useState(true);
 
-  // 1. Fetch Settings from Database on Load
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        // FIXED: Hardcoded URL hatakar endpoint ka use kiya
         const response = await API.get("api/leaves/global-settings/");
 
-        // Backend keys ko frontend state se match kar rahe hain
         setSettings({
           companyName: response.data.company_name || "ProLeave Tech",
           annualLeaveLimit: response.data.annual_leaves || 20,
@@ -35,8 +31,7 @@ function AdminFeatureSettings() {
     };
     fetchSettings();
   }, []);
-
-  // 2. Settings save karne ke liye
+  
   const handleSave = async () => {
     try {
       const dataToSend = {
@@ -44,10 +39,9 @@ function AdminFeatureSettings() {
         annual_leaves: settings.annualLeaveLimit,
         sick_leaves: settings.sickLeaveLimit,
         notifications: settings.enableEmailNotifications,
-        allow_zero: settings.allowNegativeBalance, // Variable name fix kiya
+        allow_zero: settings.allowNegativeBalance,
       };
 
-      // FIXED: Hardcoded URL hatakar API instance call kiya
       await API.post("api/leaves/global-settings/", dataToSend);
 
       alert(
