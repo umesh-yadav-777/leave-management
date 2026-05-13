@@ -8,8 +8,8 @@ function Register() {
     email: "",
     password: "",
     confirmPassword: "",
-    role: "employee", // Default role employee hi rahega
-    adminKey: "",      // Admin verify karne ke liye extra field
+    role: "employee", 
+    adminKey: "",     
   });
   const navigate = useNavigate();
 
@@ -25,18 +25,16 @@ function Register() {
     }
 
     try {
-      // Backend ko data bhej rahe hain
       await API.post("accounts/register/", {
         fullName: formData.fullName,
         email: formData.email,
         password: formData.password,
-        role: formData.role, // "employee" ya "admin" dropdown se jayega
-        adminKey: formData.adminKey, // Ye sirf admin ke liye zaroori hoga
+        role: formData.role, 
+        adminKey: formData.adminKey, 
       });
 
       alert(`${formData.role === 'admin' ? 'Admin' : 'Employee'} Registration Successful!`);
 
-      // Agar admin hai toh admin login par bhej do, warna normal login par
       if (formData.role === "admin") {
         navigate("/admin");
       } else {
@@ -56,7 +54,6 @@ function Register() {
         </div>
 
         <form onSubmit={handleSubmit}>
-          {/* --- Role Selection Dropdown --- */}
           <div className="mb-3">
             <label className="form-label small fw-bold">Register As</label>
             <select
@@ -80,7 +77,6 @@ function Register() {
             <input type="email" name="email" className="form-control bg-light" placeholder="name@company.com" onChange={handleChange} required />
           </div>
 
-          {/* --- Admin Secret Key (Sirf tab dikhega jab role 'admin' select hoga) --- */}
           {formData.role === "admin" && (
             <div className="mb-3 border p-2 border-danger rounded">
               <label className="form-label small fw-bold text-danger">Admin Secret Key</label>
