@@ -25,10 +25,7 @@ This project is a React.js-based frontend application for managing employee leav
 1. Clone the repository  
 2. Run `npm install`  
 3. Run `npm start`  
-4. Open http://localhost:3000  
-
-##  Screenshots
-(Add your UI screenshots here)
+4. Open http://localhost:3000 
 
 ##  Future Improvements
 - Backend integration with Django
